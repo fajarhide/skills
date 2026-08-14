@@ -1,0 +1,63 @@
+# Pull each skill from the repository that owns it.
+#
+# Pull rather than push. A workflow in fajarhide/omni pushing here would need a
+# cross-repository token stored as a secret; running it from this side commits to
+# this repository with the GITHUB_TOKEN the runner already has, and there is no
+# credential to rotate or leak.
+#
+# The cost of pulling is latency: a change to a source skill shows up here on the
+# next schedule rather than immediately. That is the right trade for a directory
+# listing. Anyone who needs it now can run this workflow by hand.
+name: Sync skills from their sources
+
+on:
+  schedule:
+    # 06:00 UTC, which is the middle of the working day in UTC+7.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: sync
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Pull each skill from its source
+        run: |
+          set -euo pipefail
+
+          # dest<TAB>source. One line per skill; this is the whole configuration.
+          while IFS=$'\t' read -r dest url; do
+            [ -n "${dest:-}" ] || continue
+            echo "sync: $dest <- $url"
+            mkdir -p "$(dirname "$dest")"
+            # -f so a moved or deleted source fails the run instead of writing an
+            # error page into a file agents are told to trust.
+            curl -fsSL -o "$dest" "$url"
+
+            # A SKILL.md without this frontmatter is not installable, and the
+            # directory will not list it. Catch that here rather than after a
+            # user reports the skill missing.
+            head -n 1 "$dest" | grep -qx -- '---' \
+              && grep -q '^name:' "$dest" \
+              && grep -q '^description:' "$dest" \
+              || { echo "sync: $dest has no name/description frontmatter" >&2; exit 1; }
+          done <<'SOURCES'
+          skills/omni/SKILL.md	https://raw.githubusercontent.com/fajarhide/omni/main/plugins/claude-code/skills/omni/SKILL.md
+          SOURCES
+
+      - name: Commit if anything moved
+        run: |
+          set -euo pipefail
+          git diff --quiet && { echo "sync: already up to date"; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: sync skills from their sources"
+          git push
