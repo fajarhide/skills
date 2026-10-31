@@ -173,7 +173,8 @@ def main():
                     context.add_cookies([{"name": key, "value": value, "domain": host, "path": "/"}])
                 page = context.new_page()
                 console, failed = [], []
-                page.on("console", lambda m: console.append(m.text[:200]) if m.type == "error" else None)
+                # The text of a failed load omits the URL, and favicon misses bypass the response event.
+                page.on("console", lambda m: console.append(f"{m.text[:200]} ({m.location.get('url', '')})") if m.type == "error" else None)
                 page.on("pageerror", lambda e: console.append(str(e)[:200]))
                 page.on("response", lambda r: failed.append(f"{r.status} {r.url}") if r.status >= 400 else None)
                 status = None
