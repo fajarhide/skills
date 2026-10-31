@@ -1,6 +1,6 @@
 ---
 name: ui-receipts
-description: Use when asked to audit, review, critique, QA or improve the UI or UX of a web app, site, page or flow, or before claiming a UI change is finished, even if the request is casual ("cek halaman ini", "why does this screen feel off", "is this usable", "make it look better", "review my dashboard"). Covers usability, accessibility, responsive layout, visual polish and interaction states, on a live URL or a local project.
+description: Use when asked to audit, review, critique, QA or improve the UI or UX of a web app, site, page or flow, or before claiming a UI change is finished, even if the request is casual ("cek halaman ini", "why does this screen feel off", "is this usable", "make it look better", "looks AI generated", "review my dashboard"). Covers usability, accessibility, responsive layout, visual polish and interaction states, on a live URL or a local project.
 ---
 
 # UI Receipts
@@ -48,7 +48,11 @@ Every row ends up either performed or named under Not tested with its reason. Ca
 - **Store:** full price before the last step, stock and variant states, payment failure recovery, no manufactured urgency.
 - **Docs:** search, where am I, copyable code, working anchors, readable line length.
 
-Judge in this order: can the job be done, is it understood, is the hierarchy right, then does it look good. Polish worth raising names its fix: tokens over raw colours, one light source for shadows, inner radius equal to outer minus padding, spacing on a scale, a hover state you can actually see. Generic filler copy, invented numbers and identical card grids count too.
+Judge in this order: can the job be done, is it understood, is the hierarchy right, then does it look good. Polish worth raising names its fix: tokens over raw colours, one light source for shadows, inner radius equal to outer minus padding, spacing on a scale, a hover state you can actually see.
+
+**The generic AI look** is one judgment, made after the job works. Ask whether the page could belong to any other product if the logo were swapped. Signs: purple or blue gradients and glow on everything, frosted glass on every surface, the hero, three icon cards, testimonials and FAQ sequence whatever the content, numbers and quotes with nothing behind them, copy that never says what the product does. Report them as one finding tagged `judgment`, name what the page's own content should replace them with, and rank it below anything that stops the job.
+
+A plain page that says what it does is not this, and neither is a bold look that plainly comes from the product. Use the swap test on both before reporting.
 
 ## Not findings
 
