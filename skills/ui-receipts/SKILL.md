@@ -1,6 +1,6 @@
 ---
 name: ui-receipts
-description: Use when asked to audit, review, critique, QA or improve the UI or UX of a web app, site, page or flow, or before claiming a UI change is finished, even if the request is casual ("cek halaman ini", "why does this screen feel off", "is this usable", "make it look better", "looks AI generated", "review my dashboard"). Covers usability, accessibility, responsive layout, visual polish and interaction states, on a live URL or a local project.
+description: Use when asked to audit, review, critique, QA or improve the UI or UX of a web app, site, page or flow, or before claiming a UI change is finished, even if the request is casual ("cek halaman ini", "why does this screen feel off", "is this usable", "make it look better", "looks AI generated", "review my dashboard", "how would you redesign this"). Covers usability, accessibility, responsive layout, visual polish and interaction states, on a live URL or a local project.
 ---
 
 # UI Receipts
@@ -82,6 +82,10 @@ Tested: <pages, viewports, actions performed>. Frame: <who, job>.
 Severity: **Blocker**, the job cannot be done or data is lost or duplicated. **Major**, the user is misled, takes a wrong path, or hits an accessibility failure, the test being "would they contact support". **Minor**, it works with extra effort. **Polish**, no effect on the job.
 
 Rank by what it costs the user, not by what is easiest to spot. If most findings came out Major, re-rank, because a list where everything is Major tells the reader nothing about what to do first. State only what you tested: "the data is gone" needs the reload that shows it. Merge repeats of one cause into one finding with a count. Stop at 10 and put a count of what you left out at the end. Tag a finding `observed` only if you performed the action in this session, `measured` only with a number from a tool, and `judgment` otherwise, and let `judgment` be the minority. A finding that could be pasted into a report about any other app gets cut. No overall score, since a number implies precision the audit does not have.
+
+## When a redesign is asked for
+
+If the request asks how to redesign, rethink or go further, finish the report above first, then read `references/redesign.md` and add its section. Keep the two apart: thinking about redesign during the audit costs findings.
 
 ## When building
 
