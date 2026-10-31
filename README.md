@@ -10,7 +10,7 @@ npx skills add fajarhide/skills --skill omni
 | skill | what it is for | source |
 | --- | --- | --- |
 | [`omni`](skills/omni/SKILL.md) | Installing, verifying and reading the markers of [OMNI](https://github.com/fajarhide/omni), a local hook that shortens shell output before the model reads it | [fajarhide/omni](https://github.com/fajarhide/omni/blob/main/plugins/claude-code/skills/omni/SKILL.md) |
-| [`ui-receipts`](skills/ui-receipts/SKILL.md) | Auditing the UI and UX of a web app in a real browser, where every finding carries a receipt, and proving a UI change before calling it done | this repository |
+| [`ui-receipts`](skills/ui-receipts/README.md) | Auditing the UI and UX of a web app in a real browser, where every finding carries a receipt, and proving a UI change before calling it done | this repository |
 
 ## Where to edit
 
